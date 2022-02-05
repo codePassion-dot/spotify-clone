@@ -8,6 +8,11 @@
 # testing
 /coverage
 
+#parcel
+/.parcel-cache
+/dist
+
+
 # production
 /build
 
