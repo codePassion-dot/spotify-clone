@@ -15,8 +15,8 @@
   },
   "scripts": {
     "dev": "parcel public/index.html",
-    "lint": "eslint src/**/*.js",
-    "format": "prettier src/**/*.js --write"
+    "lint": "eslint src/**/*.{js,ts.css}",
+    "format": "prettier src/**/*.{js,ts,css} --write"
   },
   "eslintConfig": {
     "extends": [
