@@ -15,8 +15,8 @@
   },
   "scripts": {
     "dev": "parcel public/index.html",
-    "lint": "eslint src/**/*.js",
-    "format": "prettier src/**/*.js --write"
+    "lint": "eslint src/**/*.{js,ts.css}",
+    "format": "prettier src/**/*.{js,ts,css} --write"
   },
   "eslintConfig": {
     "extends": [
@@ -39,17 +39,19 @@
   "devDependencies": {
     "@babel/cli": "^7.17.0",
     "@babel/core": "^7.17.0",
+    "babel-plugin-root-import": "^6.6.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@parcel/packager-raw-url": "^2.2.1",
     "@parcel/transformer-webmanifest": "^2.2.1",
     "autoprefixer": "^10.4.2",
-    "babel-plugin-root-import": "^6.6.0",
+    "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^8.8.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
+    "eslint-import-resolver-babel-module": "^5.3.1",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-module-resolver": "^1.4.0",
     "eslint-plugin-prettier": "^4.0.0",
     "parcel": "^2.2.1",
     "postcss": "^8.4.6",

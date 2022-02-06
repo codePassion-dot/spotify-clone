@@ -28,6 +28,8 @@ module.exports = {
     react: {
       version: "detect",
     },
-    "import/resolver": "babel-plugin-root-import",
+    "import/resolver": {
+      "babel-module": {},
+    },
   },
 };
