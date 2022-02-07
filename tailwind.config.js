@@ -2,6 +2,19 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   theme: {
+    screens: {
+      tablet: "640px",
+      // => @media (min-width: 640px) { ... }
+
+      laptop: "1350px",
+      // => @media (min-width: 1350px) { ... }
+
+      desktop: "1900px",
+      // => @media (min-width: 1900px) { ... }
+
+      largeDesktop: "2400px",
+      // => @media (min-width: 2400px) { ... }
+    },
     fontFamily: { poppins: "Poppins" },
     extend: {
       width: { 128: "32rem" },

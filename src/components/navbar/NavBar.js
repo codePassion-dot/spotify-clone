@@ -22,7 +22,7 @@ class NavBar extends Component {
       { type: "likedSongs", text: "Liked Songs" },
     ];
     return (
-      <div className=" sticky flex h-screen w-64 flex-col bg-black py-4 px-6">
+      <div className="sticky top-0 bottom-0  flex h-screen w-64 flex-col bg-black py-4 px-6">
         <img className="mb-8 h-auto w-32" src={spotify} alt="spotify logo" />
         {<CreateNavbarItems actions={generalActions} />}
         <div className="mt-14"></div>
