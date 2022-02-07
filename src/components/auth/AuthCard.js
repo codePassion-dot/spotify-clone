@@ -3,7 +3,7 @@ import AuthMethodsButton from "./AuthMethodsButton";
 import { AuthIcons } from "./AuthIcons";
 import InputText from "./InputText";
 import CheckBox from "./CheckBox";
-import pkceChallenge from "pkce-challenge";
+import { MusicNoteIcon } from "@heroicons/react/solid";
 
 class AuthCard extends Component {
   // in production this objects should be retrieved with and api end point
@@ -13,24 +13,35 @@ class AuthCard extends Component {
       icon: AuthIcons.facebook,
       bgColor: "bg-facebook-blue",
       textColor: "text-white",
+      type: "facebook",
     },
     {
       text: "continue with apple",
       icon: AuthIcons.apple,
       bgColor: "bg-apple-black",
       textColor: "text-white",
+      type: "apple",
     },
     {
       text: "continue with google",
       icon: AuthIcons.google,
       bgColor: "bg-white",
       textColor: "text-default-grey",
+      type: "google",
     },
     {
       text: "continue with phone number",
       icon: AuthIcons.phone,
       bgColor: "bg-white",
       textColor: "text-default-grey",
+      type: "phone",
+    },
+    {
+      text: "continue with me",
+      icon: <MusicNoteIcon className="mr-2 h-6 w-6 text-black" />,
+      bgColor: "bg-white",
+      textColor: "text-default-grey",
+      type: "spotify",
     },
   ];
 
@@ -48,30 +59,6 @@ class AuthCard extends Component {
       type: "password",
     },
   ];
-
-  async handleLoginRequest() {
-    const scopes = [
-      "user-read-private",
-      "user-read-email",
-      "playlist-modify-private",
-      "playlist-read-collaborative",
-      "playlist-read-private",
-      "playlist-modify-public",
-    ];
-    const { code_challenge, code_verifier } = pkceChallenge(68);
-    localStorage.setItem("codeVerifier", code_verifier);
-    const params = {
-      client_id: process.env.REACT_APP_CLIENT_ID,
-      response_type: "code",
-      scope: scopes.join(" "),
-      redirect_uri: process.env.REACT_APP_REDIRECT_URI,
-      code_challenge_method: "S256",
-      code_challenge: code_challenge,
-    };
-    const endpoint = new URL(process.env.REACT_APP_AUTH_END_POINT);
-    endpoint.search = new URLSearchParams(params);
-    window.location = endpoint.toString();
-  }
 
   render() {
     return (
@@ -97,10 +84,7 @@ class AuthCard extends Component {
           <h3 className="mt-4 text-sm font-medium">Forgot your password?</h3>
           <div className="mt-2 flex flex-row">
             <CheckBox doneArrow={AuthIcons.doneArrow} />
-            <button
-              onClick={this.handleLoginRequest}
-              className="ml-auto w-32 rounded-full bg-button-green p-3"
-            >
+            <button className="ml-auto w-32 rounded-full bg-button-green p-3">
               <h3 className="mx-auto w-fit font-semibold ">LOG IN</h3>
             </button>
           </div>

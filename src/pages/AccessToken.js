@@ -12,7 +12,6 @@ export function AccessTokenWrapper() {
 
 class AccessToken extends Component {
   state = { redirect: false, second: 7 };
-  timer;
   interval;
 
   async getAccessToken() {
