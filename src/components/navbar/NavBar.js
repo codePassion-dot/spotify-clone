@@ -1,6 +1,7 @@
 import { Component } from "react";
 import spotify from "@icons/spotify-logo-white.png";
 import NavBarItem from "./NavBarItem";
+import { Buffer } from "buffer";
 
 function CreateNavbarItems(props) {
   const { actions } = props;
@@ -10,6 +11,29 @@ function CreateNavbarItems(props) {
 }
 
 class NavBar extends Component {
+  async componentDidMount() {
+    const params = new URLSearchParams(window.location.search);
+    const codeVerifier = localStorage.getItem("codeVerifier");
+    const data = {
+      code: params.get("code"),
+      grant_type: "authorization_code",
+      redirect_uri: process.env.REACT_APP_REDIRECT_URI,
+      client_id: process.env.REACT_APP_CLIENT_ID,
+      code_verifier: codeVerifier,
+    };
+    const normalizedData = new URLSearchParams(Object.entries(data)).toString();
+    const auth = Buffer.from(process.env.REACT_APP_CLIENTS);
+    const res = await fetch(process.env.REACT_APP_TOKEN_END_POINT, {
+      method: "POST",
+      body: normalizedData,
+      headers: {
+        Authorization: `Basic ${auth.toString("base64")}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+    const json = await res.json(res);
+    console.log(json);
+  }
   render() {
     // in production this should be an api end point
     const generalActions = [
