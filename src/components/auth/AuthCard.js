@@ -3,6 +3,8 @@ import AuthMethodsButton from "./AuthMethodsButton";
 import { AuthIcons } from "./AuthIcons";
 import InputText from "./InputText";
 import CheckBox from "./CheckBox";
+import pkceChallenge from "pkce-challenge";
+
 class AuthCard extends Component {
   // in production this objects should be retrieved with and api end point
   buttonsProps = [
@@ -46,6 +48,31 @@ class AuthCard extends Component {
       type: "password",
     },
   ];
+
+  async handleLoginRequest() {
+    const scopes = [
+      "user-read-private",
+      "user-read-email",
+      "playlist-modify-private",
+      "playlist-read-collaborative",
+      "playlist-read-private",
+      "playlist-modify-public",
+    ];
+    const { code_challenge, code_verifier } = pkceChallenge(68);
+    localStorage.setItem("codeVerifier", code_verifier);
+    const params = {
+      client_id: process.env.REACT_APP_CLIENT_ID,
+      response_type: "code",
+      scope: scopes.join(" "),
+      redirect_uri: process.env.REACT_APP_REDIRECT_URI,
+      code_challenge_method: "S256",
+      code_challenge: code_challenge,
+    };
+    const endpoint = new URL(process.env.REACT_APP_AUTH_END_POINT);
+    endpoint.search = new URLSearchParams(params);
+    window.location = endpoint.toString();
+  }
+
   render() {
     return (
       <div>
@@ -70,9 +97,12 @@ class AuthCard extends Component {
           <h3 className="mt-4 text-sm font-medium">Forgot your password?</h3>
           <div className="mt-2 flex flex-row">
             <CheckBox doneArrow={AuthIcons.doneArrow} />
-            <div className="ml-auto w-32 rounded-full bg-button-green p-3">
+            <button
+              onClick={this.handleLoginRequest}
+              className="ml-auto w-32 rounded-full bg-button-green p-3"
+            >
               <h3 className="mx-auto w-fit font-semibold ">LOG IN</h3>
-            </div>
+            </button>
           </div>
           <div className="my-6 flex-grow border-t border-gray-400" />
           <h2 className="mx-auto mt-3 font-bold">Don&apos;t have an account</h2>

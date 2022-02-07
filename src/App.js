@@ -1,5 +1,6 @@
+import AuthCard from "@components/auth/AuthCard";
 function App() {
-  return <h1 className="text-3xl font-bold underline"> Hello world! </h1>;
+  return <AuthCard />;
 }
 
 export default App;
